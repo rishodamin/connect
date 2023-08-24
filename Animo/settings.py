@@ -77,11 +77,8 @@ WSGI_APPLICATION = 'Animo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'connect',
-        'USER' : 'postgres',
-        'PASSWORD' : 'Legendary123',
-        'HOST' : 'localhost',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
