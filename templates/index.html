@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="{% static 'assets/css/style.css'%}" rel="stylesheet">
+    <style>
+        body{
+            background: url("{% static 'assets/img/homebg.jpeg'%}") top right;
+            overflow-y: hidden;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">{{user.username}}</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+    <a href="logout" style="margin-top: 23rem;">Logout</a>
+</div>
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+
+<div class="btn-wrapper">
+
+    <div class="btns">
+        <button class="button-27">Book Jobs</button>
+        <a href="hire"><button class="button-27">Hire</button></a>
+    </div>
+</div>
+
+<script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
+
+</body>
+
+</html>
