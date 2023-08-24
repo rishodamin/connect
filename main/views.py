@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import Works
+from .models import Works, Details
 
 # Create your views here.
 def index(req):
     if not req.user.is_authenticated:
         return redirect('/login')
-    return render(req, 'index.html')
+    detail = Details.objects.filter(username=req.user.username).first()
+    content = {"detail":detail}
+    return render(req, 'index.html', content)
 
 def hire(req):
     content = {}
@@ -37,8 +39,16 @@ def register(req):
         email = req.POST["email"]
         password = req.POST["password"]
         password2 = req.POST["password2"]
+        num = req.POST["phonenumber"]
+        name = req.POST["fullname"]
         if not username:
             messages.info(req, "Username not given")
+            return redirect("register")
+        if not name:
+            messages.info(req, "Name not given")
+            return redirect("register")
+        if Details.objects.filter(phonenum=num).exists():
+            messages.info(req, "Phone Number already used")
             return redirect("register")
         if password==password2:
             if User.objects.filter(email=email).exists():
@@ -49,6 +59,8 @@ def register(req):
                 return redirect("register")
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
+            detail = Details(username=username, name=name, phonenum=num)
+            detail.save()
             return redirect("login")
         messages.info(req, "Password not the same")
         return redirect("register")
